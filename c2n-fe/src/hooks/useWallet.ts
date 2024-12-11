@@ -6,7 +6,7 @@ import { setChain } from '@/lib/features/wallet'
 import { useAppSelector, useAppDispatch, useAppStore } from '../lib/hooks'
 import { message } from 'antd'
 import { validChains } from '@/config'
-
+// TODO ：当使用wagmi时，封装一些hook即可，不需要再维护一个wallet store（src/lib/feature/wallet.ts），我理解对吗？
 export function listenToWallet() {
     const dispatch = useAppDispatch();
 
