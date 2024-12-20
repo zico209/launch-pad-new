@@ -1,9 +1,11 @@
 export * from './valid_chains'
 export * from './wagmi'
-
 export const appConfig = {
-    address: {
-        stakeToken: process.env.STAKED_TOKEN_ADDRESS,
-        earnedToken: process.env.EARNED_TOKEN_ADDRESS
+    c2nToken: {
+        address: process.env.NEXT_PUBLIC_C2N_TOKEN,
+        symbol: 'C2N',
+    },
+    airpDrop: {
+        address: process.env.NEXT_PUBLIC_AIRDROP
     }
 }

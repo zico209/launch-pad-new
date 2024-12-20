@@ -76,47 +76,24 @@ return <Header className={styles.header}>
     </Col>
     <Col span={isDesktopOrLaptop ? 18 : 4} offset={isDesktopOrLaptop ? 0 : 14}>
       {
-        isDesktopOrLaptop
-          ? (
-            <Row className={styles.menu} key="desktop" justify="space-between" align="middle">
-              <Link href="/">
-                <div className={[styles.button, activeTabIndex == 0 ? styles['active'] : ''].join(' ')}>Home</div>
-              </Link>
-              <Link href="/farming">
-                <div className={[styles.button, activeTabIndex == 2 ? styles['active'] : ''].join(' ')}>Farm</div>
-              </Link>
-              <Link href="/pools">
-                <div className={[styles.button, activeTabIndex == 3 || activeTabIndex == 4 ? styles['active'] : ''].join(' ')}>Projects</div>
-              </Link>
-              <Link href="/stake">
-                <div className={[styles.button, activeTabIndex == 1 ? styles['active'] : ''].join(' ')}>Staking</div>
-              </Link>
-              <WalletButton></WalletButton>
-              <NetworkButton></NetworkButton>
-            </Row>
-          ) : ['/safepal'].includes(router.pathname)
-            ? <>
-              <WalletButton
-                className={styles['wallet-button-safepal']}
-              ></WalletButton>
-            </>
-            : <>
-              <Row justify="end" align="middle" style={{ width: '100%', height: '100%' }}>
-                <MenuOutlined style={{ fontSize: '0.36rem' }} onClick={() => setShowSider(!showSider)}>
-                </MenuOutlined>
-              </Row>
-              <Layout.Sider
-                collapsed={!showSider}
-                collapsedWidth={0}
-                theme="light"
-                onClick={() => setShowSider(!showSider)}
-                style={{ 'position': 'fixed', 'right': '0', 'textIndent': '1em', 'zIndex': '100' }}>
-                {menu}
-              </Layout.Sider>
-              <div className={styles['sider-background']} onClick={() => setShowSider(!showSider)} style={{ display: showSider ? 'block' : 'none' }}>
-                &nbsp;
-              </div>
-            </>
+        (
+          <Row className={styles.menu} key="desktop" justify="space-between" align="middle">
+            <Link href="/">
+              <div className={[styles.button, activeTabIndex == 0 ? styles['active'] : ''].join(' ')}>Home</div>
+            </Link>
+            <Link href="/farming">
+              <div className={[styles.button, activeTabIndex == 2 ? styles['active'] : ''].join(' ')}>Farm</div>
+            </Link>
+            <Link href="/pools">
+              <div className={[styles.button, activeTabIndex == 3 || activeTabIndex == 4 ? styles['active'] : ''].join(' ')}>Projects</div>
+            </Link>
+            <Link href="/stake">
+              <div className={[styles.button, activeTabIndex == 1 ? styles['active'] : ''].join(' ')}>Staking</div>
+            </Link>
+            <WalletButton></WalletButton>
+            <NetworkButton></NetworkButton>
+          </Row>
+        )
       }
     </Col>
   </Row>
