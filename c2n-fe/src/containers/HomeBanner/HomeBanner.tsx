@@ -32,6 +32,7 @@ export default function Header() {
       }
     })
   }
+  // TODO : 问题代码
   const handleClaim = async () => {
     try {
       // Define the contract
