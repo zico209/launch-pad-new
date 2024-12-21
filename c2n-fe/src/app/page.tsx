@@ -1,24 +1,24 @@
 'use client'
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { Row, Col } from 'antd';
 import type { AppProps } from 'next/app'
 import Link from 'next/link'
-import HomeBanner from '@/containers/HomeBanner/HomeBanner'
+import HomeBanner from '@/components/HomeBanner/HomeBanner'
 
 export default function Home({ Component, pageProps }: AppProps) {
   return (
-    <main className={styles.main}>
-      <section>
+    <main style={{ display: 'flex', justifyContent: 'center', color: 'white' }}>
+      <section style={{ width: '50vw', paddingTop: '2rem' }}>
         <HomeBanner></HomeBanner>
-        <div>
+        <div style={{ paddingBottom: '3em' }}>
           <Row>
             <Col span={18}>
-              <h1>
+              <h1 style={{ fontSize: '3rem', fontWeight: '400' }}>
                 C2N: Fundraising platform
                 <br />
                 on Sepolia
               </h1>
-              <div>
+              <div style={{ fontSize: '1.4rem', fontWeight: '300', color: '#ffffff', padding: '1em 0em' }}>
                 C2N is the first exclusive launchpad for decentralized fundraising
                 <br />
                 offering the hottest and innovative projects in
@@ -26,13 +26,8 @@ export default function Home({ Component, pageProps }: AppProps) {
                 a fair, secure, and efficient way.
               </div>
               <Link href="/stake" passHref>
-                <div>Stake</div>
+                <div className={styles.button}>Stake</div>
               </Link>
-            </Col>
-            <Col span={6}>
-              {
-                <div></div>
-              }
             </Col>
           </Row>
         </div>

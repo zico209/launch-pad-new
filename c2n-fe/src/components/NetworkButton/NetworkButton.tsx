@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import styles from './NetworkButton.module.scss'
-import { validChains } from '@/config'
 import { useAccount, useSwitchChain, useDisconnect } from 'wagmi';
 import { Select, SelectProps } from 'antd';
 import { useChains } from 'wagmi'
@@ -20,12 +19,7 @@ export default function NetworkButton() {
       label: item.name,
       value: item.id
     }
-  }), [validChains, chainId])
-
-  const chainMeta = useMemo(() => {
-    let target = validChains.find((item) => { return item?.chainId == chainId });
-    return target;
-  }, [chainId]);
+  }), [chainId])
 
   return (
     <Select

@@ -1,4 +1,3 @@
-export * from './valid_chains'
 export * from './wagmi'
 export const appConfig = {
     c2nToken: {
@@ -7,5 +6,8 @@ export const appConfig = {
     },
     airpDrop: {
         address: process.env.NEXT_PUBLIC_AIRDROP
+    },
+    farming: {
+        address: process.env.NEXT_PUBLIC_FARMING
     }
 }

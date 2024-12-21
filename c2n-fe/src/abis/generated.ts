@@ -6,6 +6,18 @@ import {
 } from 'wagmi/codegen'
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Address
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const addressAbi = [
+  {
+    type: 'error',
+    inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
+    name: 'AddressEmptyCode',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Airdrop
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -826,6 +838,323 @@ export const erc20PermitAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Errors
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const errorsAbi = [
+  { type: 'error', inputs: [], name: 'FailedCall' },
+  { type: 'error', inputs: [], name: 'FailedDeployment' },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'balance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'InsufficientBalance',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'MissingPrecompile',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FarmingC2N
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const farmingC2NAbi = [
+  {
+    type: 'constructor',
+    inputs: [
+      { name: '_erc20', internalType: 'contract IERC20', type: 'address' },
+      { name: '_rewardPerSecond', internalType: 'uint256', type: 'uint256' },
+      { name: '_startTimestamp', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'OwnableInvalidOwner',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'OwnableUnauthorizedAccount',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'SafeERC20FailedOperation',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'user', internalType: 'address', type: 'address', indexed: true },
+      { name: 'pid', internalType: 'uint256', type: 'uint256', indexed: true },
+      {
+        name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Deposit',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'user', internalType: 'address', type: 'address', indexed: true },
+      { name: 'pid', internalType: 'uint256', type: 'uint256', indexed: true },
+      {
+        name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'EmergencyWithdraw',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferred',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'user', internalType: 'address', type: 'address', indexed: true },
+      { name: 'pid', internalType: 'uint256', type: 'uint256', indexed: true },
+      {
+        name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Withdraw',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_allocPoint', internalType: 'uint256', type: 'uint256' },
+      { name: '_lpToken', internalType: 'contract IERC20', type: 'address' },
+      { name: '_withUpdate', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'add',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_pid', internalType: 'uint256', type: 'uint256' },
+      { name: '_amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'deposit',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_pid', internalType: 'uint256', type: 'uint256' },
+      { name: '_user', internalType: 'address', type: 'address' },
+    ],
+    name: 'deposited',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '_pid', internalType: 'uint256', type: 'uint256' }],
+    name: 'emergencyWithdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'endTimestamp',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'erc20',
+    outputs: [{ name: '', internalType: 'contract IERC20', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '_amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'fund',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'massUpdatePools',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'paidOut',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_pid', internalType: 'uint256', type: 'uint256' },
+      { name: '_user', internalType: 'address', type: 'address' },
+    ],
+    name: 'pending',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'poolInfo',
+    outputs: [
+      { name: 'lpToken', internalType: 'contract IERC20', type: 'address' },
+      { name: 'allocPoint', internalType: 'uint256', type: 'uint256' },
+      { name: 'lastRewardTimestamp', internalType: 'uint256', type: 'uint256' },
+      { name: 'accERC20PerShare', internalType: 'uint256', type: 'uint256' },
+      { name: 'totalDeposits', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'poolLength',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'rewardPerSecond',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_pid', internalType: 'uint256', type: 'uint256' },
+      { name: '_allocPoint', internalType: 'uint256', type: 'uint256' },
+      { name: '_withUpdate', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'set',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'startTimestamp',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalAllocPoint',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalPending',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalRewards',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '_pid', internalType: 'uint256', type: 'uint256' }],
+    name: 'updatePool',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'address', type: 'address' },
+    ],
+    name: 'userInfo',
+    outputs: [
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'rewardDebt', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_pid', internalType: 'uint256', type: 'uint256' },
+      { name: '_amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'withdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // IERC1155Errors
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -875,6 +1204,194 @@ export const ierc1155ErrorsAbi = [
       { name: 'owner', internalType: 'address', type: 'address' },
     ],
     name: 'ERC1155MissingApprovalForAll',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IERC1363
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ierc1363Abi = [
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approveAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'approveAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'transferAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'transferFromAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFromAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IERC165
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ierc165Abi = [
+  {
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
   },
 ] as const
 
@@ -1378,6 +1895,27 @@ export const safeCastAbi = [
     type: 'error',
     inputs: [{ name: 'value', internalType: 'uint256', type: 'uint256' }],
     name: 'SafeCastOverflowedUintToInt',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SafeERC20
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const safeErc20Abi = [
+  {
+    type: 'error',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'currentAllowance', internalType: 'uint256', type: 'uint256' },
+      { name: 'requestedDecrease', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'SafeERC20FailedDecreaseAllowance',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'SafeERC20FailedOperation',
   },
 ] as const
 
@@ -2134,6 +2672,559 @@ export const useWatchErc20PermitTransferEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
     abi: erc20PermitAbi,
     eventName: 'Transfer',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__
+ */
+export const useReadFarmingC2N = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"deposited"`
+ */
+export const useReadFarmingC2NDeposited = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'deposited',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"endTimestamp"`
+ */
+export const useReadFarmingC2NEndTimestamp =
+  /*#__PURE__*/ createUseReadContract({
+    abi: farmingC2NAbi,
+    functionName: 'endTimestamp',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"erc20"`
+ */
+export const useReadFarmingC2NErc20 = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'erc20',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"owner"`
+ */
+export const useReadFarmingC2NOwner = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'owner',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"paidOut"`
+ */
+export const useReadFarmingC2NPaidOut = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'paidOut',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"pending"`
+ */
+export const useReadFarmingC2NPending = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'pending',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"poolInfo"`
+ */
+export const useReadFarmingC2NPoolInfo = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'poolInfo',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"poolLength"`
+ */
+export const useReadFarmingC2NPoolLength = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'poolLength',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"rewardPerSecond"`
+ */
+export const useReadFarmingC2NRewardPerSecond =
+  /*#__PURE__*/ createUseReadContract({
+    abi: farmingC2NAbi,
+    functionName: 'rewardPerSecond',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"startTimestamp"`
+ */
+export const useReadFarmingC2NStartTimestamp =
+  /*#__PURE__*/ createUseReadContract({
+    abi: farmingC2NAbi,
+    functionName: 'startTimestamp',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"totalAllocPoint"`
+ */
+export const useReadFarmingC2NTotalAllocPoint =
+  /*#__PURE__*/ createUseReadContract({
+    abi: farmingC2NAbi,
+    functionName: 'totalAllocPoint',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"totalPending"`
+ */
+export const useReadFarmingC2NTotalPending =
+  /*#__PURE__*/ createUseReadContract({
+    abi: farmingC2NAbi,
+    functionName: 'totalPending',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"totalRewards"`
+ */
+export const useReadFarmingC2NTotalRewards =
+  /*#__PURE__*/ createUseReadContract({
+    abi: farmingC2NAbi,
+    functionName: 'totalRewards',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"userInfo"`
+ */
+export const useReadFarmingC2NUserInfo = /*#__PURE__*/ createUseReadContract({
+  abi: farmingC2NAbi,
+  functionName: 'userInfo',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__
+ */
+export const useWriteFarmingC2N = /*#__PURE__*/ createUseWriteContract({
+  abi: farmingC2NAbi,
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"add"`
+ */
+export const useWriteFarmingC2NAdd = /*#__PURE__*/ createUseWriteContract({
+  abi: farmingC2NAbi,
+  functionName: 'add',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"deposit"`
+ */
+export const useWriteFarmingC2NDeposit = /*#__PURE__*/ createUseWriteContract({
+  abi: farmingC2NAbi,
+  functionName: 'deposit',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"emergencyWithdraw"`
+ */
+export const useWriteFarmingC2NEmergencyWithdraw =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: farmingC2NAbi,
+    functionName: 'emergencyWithdraw',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"fund"`
+ */
+export const useWriteFarmingC2NFund = /*#__PURE__*/ createUseWriteContract({
+  abi: farmingC2NAbi,
+  functionName: 'fund',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"massUpdatePools"`
+ */
+export const useWriteFarmingC2NMassUpdatePools =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: farmingC2NAbi,
+    functionName: 'massUpdatePools',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"renounceOwnership"`
+ */
+export const useWriteFarmingC2NRenounceOwnership =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: farmingC2NAbi,
+    functionName: 'renounceOwnership',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"set"`
+ */
+export const useWriteFarmingC2NSet = /*#__PURE__*/ createUseWriteContract({
+  abi: farmingC2NAbi,
+  functionName: 'set',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"transferOwnership"`
+ */
+export const useWriteFarmingC2NTransferOwnership =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: farmingC2NAbi,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"updatePool"`
+ */
+export const useWriteFarmingC2NUpdatePool =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: farmingC2NAbi,
+    functionName: 'updatePool',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"withdraw"`
+ */
+export const useWriteFarmingC2NWithdraw = /*#__PURE__*/ createUseWriteContract({
+  abi: farmingC2NAbi,
+  functionName: 'withdraw',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__
+ */
+export const useSimulateFarmingC2N = /*#__PURE__*/ createUseSimulateContract({
+  abi: farmingC2NAbi,
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"add"`
+ */
+export const useSimulateFarmingC2NAdd = /*#__PURE__*/ createUseSimulateContract(
+  { abi: farmingC2NAbi, functionName: 'add' },
+)
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"deposit"`
+ */
+export const useSimulateFarmingC2NDeposit =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'deposit',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"emergencyWithdraw"`
+ */
+export const useSimulateFarmingC2NEmergencyWithdraw =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'emergencyWithdraw',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"fund"`
+ */
+export const useSimulateFarmingC2NFund =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'fund',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"massUpdatePools"`
+ */
+export const useSimulateFarmingC2NMassUpdatePools =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'massUpdatePools',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"renounceOwnership"`
+ */
+export const useSimulateFarmingC2NRenounceOwnership =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'renounceOwnership',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"set"`
+ */
+export const useSimulateFarmingC2NSet = /*#__PURE__*/ createUseSimulateContract(
+  { abi: farmingC2NAbi, functionName: 'set' },
+)
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"transferOwnership"`
+ */
+export const useSimulateFarmingC2NTransferOwnership =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"updatePool"`
+ */
+export const useSimulateFarmingC2NUpdatePool =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'updatePool',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link farmingC2NAbi}__ and `functionName` set to `"withdraw"`
+ */
+export const useSimulateFarmingC2NWithdraw =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: farmingC2NAbi,
+    functionName: 'withdraw',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link farmingC2NAbi}__
+ */
+export const useWatchFarmingC2NEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({ abi: farmingC2NAbi })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link farmingC2NAbi}__ and `eventName` set to `"Deposit"`
+ */
+export const useWatchFarmingC2NDepositEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: farmingC2NAbi,
+    eventName: 'Deposit',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link farmingC2NAbi}__ and `eventName` set to `"EmergencyWithdraw"`
+ */
+export const useWatchFarmingC2NEmergencyWithdrawEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: farmingC2NAbi,
+    eventName: 'EmergencyWithdraw',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link farmingC2NAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ */
+export const useWatchFarmingC2NOwnershipTransferredEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: farmingC2NAbi,
+    eventName: 'OwnershipTransferred',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link farmingC2NAbi}__ and `eventName` set to `"Withdraw"`
+ */
+export const useWatchFarmingC2NWithdrawEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: farmingC2NAbi,
+    eventName: 'Withdraw',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ierc1363Abi}__
+ */
+export const useReadIerc1363 = /*#__PURE__*/ createUseReadContract({
+  abi: ierc1363Abi,
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"allowance"`
+ */
+export const useReadIerc1363Allowance = /*#__PURE__*/ createUseReadContract({
+  abi: ierc1363Abi,
+  functionName: 'allowance',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"balanceOf"`
+ */
+export const useReadIerc1363BalanceOf = /*#__PURE__*/ createUseReadContract({
+  abi: ierc1363Abi,
+  functionName: 'balanceOf',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"supportsInterface"`
+ */
+export const useReadIerc1363SupportsInterface =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ierc1363Abi,
+    functionName: 'supportsInterface',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"totalSupply"`
+ */
+export const useReadIerc1363TotalSupply = /*#__PURE__*/ createUseReadContract({
+  abi: ierc1363Abi,
+  functionName: 'totalSupply',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ierc1363Abi}__
+ */
+export const useWriteIerc1363 = /*#__PURE__*/ createUseWriteContract({
+  abi: ierc1363Abi,
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"approve"`
+ */
+export const useWriteIerc1363Approve = /*#__PURE__*/ createUseWriteContract({
+  abi: ierc1363Abi,
+  functionName: 'approve',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"approveAndCall"`
+ */
+export const useWriteIerc1363ApproveAndCall =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ierc1363Abi,
+    functionName: 'approveAndCall',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transfer"`
+ */
+export const useWriteIerc1363Transfer = /*#__PURE__*/ createUseWriteContract({
+  abi: ierc1363Abi,
+  functionName: 'transfer',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transferAndCall"`
+ */
+export const useWriteIerc1363TransferAndCall =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ierc1363Abi,
+    functionName: 'transferAndCall',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transferFrom"`
+ */
+export const useWriteIerc1363TransferFrom =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ierc1363Abi,
+    functionName: 'transferFrom',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transferFromAndCall"`
+ */
+export const useWriteIerc1363TransferFromAndCall =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ierc1363Abi,
+    functionName: 'transferFromAndCall',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ierc1363Abi}__
+ */
+export const useSimulateIerc1363 = /*#__PURE__*/ createUseSimulateContract({
+  abi: ierc1363Abi,
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"approve"`
+ */
+export const useSimulateIerc1363Approve =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ierc1363Abi,
+    functionName: 'approve',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"approveAndCall"`
+ */
+export const useSimulateIerc1363ApproveAndCall =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ierc1363Abi,
+    functionName: 'approveAndCall',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transfer"`
+ */
+export const useSimulateIerc1363Transfer =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ierc1363Abi,
+    functionName: 'transfer',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transferAndCall"`
+ */
+export const useSimulateIerc1363TransferAndCall =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ierc1363Abi,
+    functionName: 'transferAndCall',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transferFrom"`
+ */
+export const useSimulateIerc1363TransferFrom =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ierc1363Abi,
+    functionName: 'transferFrom',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ierc1363Abi}__ and `functionName` set to `"transferFromAndCall"`
+ */
+export const useSimulateIerc1363TransferFromAndCall =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ierc1363Abi,
+    functionName: 'transferFromAndCall',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ierc1363Abi}__
+ */
+export const useWatchIerc1363Event = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: ierc1363Abi,
+})
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ierc1363Abi}__ and `eventName` set to `"Approval"`
+ */
+export const useWatchIerc1363ApprovalEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ierc1363Abi,
+    eventName: 'Approval',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ierc1363Abi}__ and `eventName` set to `"Transfer"`
+ */
+export const useWatchIerc1363TransferEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ierc1363Abi,
+    eventName: 'Transfer',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ierc165Abi}__
+ */
+export const useReadIerc165 = /*#__PURE__*/ createUseReadContract({
+  abi: ierc165Abi,
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ierc165Abi}__ and `functionName` set to `"supportsInterface"`
+ */
+export const useReadIerc165SupportsInterface =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ierc165Abi,
+    functionName: 'supportsInterface',
   })
 
 /**

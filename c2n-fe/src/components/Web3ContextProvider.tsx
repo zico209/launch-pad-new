@@ -12,12 +12,7 @@ import { ConnectionProvider } from '@/hooks/useConnect'
 const queryClient = new QueryClient()
 export function Web3ProviderUpdater() {
   const account = useAccount()
-  const provider = useEthersProvider()
 
-  const isSupportedChain = useIsSupportedChains(account.chainId)
-  const { connector } = useAccount()
-
-  const previousConnectedChainId = usePrevious(account.chainId)
   // Send analytics events when the active account changes.
   const previousAccount = usePrevious(account.address)
   useEffect(() => {
