@@ -11,7 +11,7 @@ import { useAccount } from "wagmi";
 
 export const useFarmingForm = () => {
   const { address } = useAccount();
-  const [depositTokenBalance, setDepositTokenBalance] = useState<number>();
+  const [depositTokenBalance, setDepositTokenBalance] = useState<bigint>();
   const [depositTokenSymbol, setDepositTokenSymbol] = useState<string>();
   const [farmingDepositedAmount, setFarmingDepositedAmount] =
     useState<number>();
@@ -30,15 +30,16 @@ export const useFarmingForm = () => {
     return getWagmiAddress(poolInfo?.lpToken!);
   }, [poolInfo?.lpToken]);
 
-  const { data: depositTokenBalanceData } = useReadErc20BalanceOf({
-    address: depositTokenAddress,
-    query: { enabled: !!depositTokenAddress },
-    args: [address!],
-  });
+  const { data: depositTokenBalanceData, refetch: depositTokenBalanceRefetch } =
+    useReadErc20BalanceOf({
+      address: depositTokenAddress,
+      query: { enabled: !!depositTokenAddress },
+      args: [address!],
+    });
 
   useEffect(() => {
     if (!depositTokenBalanceData) return;
-    setDepositTokenBalance(Number(depositTokenBalanceData));
+    setDepositTokenBalance(depositTokenBalanceData);
   }, [depositTokenBalanceData]);
 
   const { data: depositTokenSymbolData } = useReadErc20Symbol({
@@ -51,11 +52,12 @@ export const useFarmingForm = () => {
     setDepositTokenSymbol(depositTokenSymbolData);
   }, [depositTokenSymbolData]);
 
-  const { data: farmingC2NDepositedData } = useReadFarmingC2NDeposited({
-    address: farmingAddress,
-    query: { enabled: poolId !== undefined },
-    args: poolId !== undefined ? [BigInt(poolId), address!] : undefined,
-  });
+  const { data: farmingC2NDepositedData, refetch: farmingC2NDepositedRefetch } =
+    useReadFarmingC2NDeposited({
+      address: farmingAddress,
+      query: { enabled: poolId !== undefined },
+      args: poolId !== undefined ? [BigInt(poolId), address!] : undefined,
+    });
 
   useEffect(() => {
     if (farmingC2NDepositedData === undefined) return;
@@ -66,14 +68,14 @@ export const useFarmingForm = () => {
     setPoolId(id);
   };
 
-  const { data: farmingC2NPoolInfoData } = useReadFarmingC2NPoolInfo({
-    address: farmingAddress,
-    query: { enabled: poolId !== undefined },
-    args: poolId !== undefined ? [BigInt(poolId)] : undefined,
-  });
+  const { data: farmingC2NPoolInfoData, refetch: farmingC2NPoolInfoRefetch } =
+    useReadFarmingC2NPoolInfo({
+      address: farmingAddress,
+      query: { enabled: poolId !== undefined },
+      args: poolId !== undefined ? [BigInt(poolId)] : undefined,
+    });
 
   useEffect(() => {
-    console.log(farmingC2NPoolInfoData);
     if (!farmingC2NPoolInfoData) return;
     const [
       lpToken,
@@ -91,11 +93,18 @@ export const useFarmingForm = () => {
     });
   }, [farmingC2NPoolInfoData]);
 
+  const refetchDynamicalData = async () => {
+    await farmingC2NPoolInfoRefetch();
+    await farmingC2NDepositedRefetch();
+    await depositTokenBalanceRefetch();
+  };
+
   return {
     depositTokenBalance,
     depositTokenSymbol,
     farmingDepositedAmount,
     poolInfo,
     getPoolInfo,
+    refetchDynamicalData,
   };
 };
