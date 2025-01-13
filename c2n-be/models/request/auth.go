@@ -1,6 +1,6 @@
 package request
 
 type GetTokenRequest struct {
-	signedMsg string
-	msg       string
+	Signature string
+	Address   string
 }

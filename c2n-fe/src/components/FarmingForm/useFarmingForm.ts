@@ -47,23 +47,6 @@ export const useFarmingForm = () => {
     query: { enabled: !!depositTokenAddress },
   });
 
-  useEffect(() => {
-    if (!depositTokenSymbolData) return;
-    setDepositTokenSymbol(depositTokenSymbolData);
-  }, [depositTokenSymbolData]);
-
-  const { data: farmingC2NDepositedData, refetch: farmingC2NDepositedRefetch } =
-    useReadFarmingC2NDeposited({
-      address: farmingAddress,
-      query: { enabled: poolId !== undefined },
-      args: poolId !== undefined ? [BigInt(poolId), address!] : undefined,
-    });
-
-  useEffect(() => {
-    if (farmingC2NDepositedData === undefined) return;
-    setFarmingDepositedAmount(Number(farmingC2NDepositedData));
-  }, [farmingC2NDepositedData]);
-
   const getPoolInfo = (id: number) => {
     setPoolId(id);
   };
@@ -74,6 +57,23 @@ export const useFarmingForm = () => {
       query: { enabled: poolId !== undefined },
       args: poolId !== undefined ? [BigInt(poolId)] : undefined,
     });
+
+  const { data: farmingC2NDepositedData, refetch: farmingC2NDepositedRefetch } =
+    useReadFarmingC2NDeposited({
+      address: farmingAddress,
+      query: { enabled: poolId !== undefined },
+      args: poolId !== undefined ? [BigInt(poolId), address!] : undefined,
+    });
+
+  useEffect(() => {
+    if (!depositTokenSymbolData) return;
+    setDepositTokenSymbol(depositTokenSymbolData);
+  }, [depositTokenSymbolData]);
+
+  useEffect(() => {
+    if (farmingC2NDepositedData === undefined) return;
+    setFarmingDepositedAmount(Number(farmingC2NDepositedData));
+  }, [farmingC2NDepositedData]);
 
   useEffect(() => {
     if (!farmingC2NPoolInfoData) return;
