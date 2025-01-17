@@ -3,6 +3,7 @@ package main
 import (
 	"c2n-be/Initialize"
 	_ "c2n-be/docs"
+	"c2n-be/services/eventlistener"
 )
 
 //  @title			Swagger Example API
@@ -19,5 +20,8 @@ import (
 // @name						Authorization
 // @description				Description for what is this security definition being used
 func main() {
+	go func() {
+		eventlistener.ListenDeposit()
+	}()
 	Initialize.InitRouter()
 }

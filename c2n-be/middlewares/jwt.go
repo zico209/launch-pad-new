@@ -2,9 +2,10 @@ package middlewares
 
 import (
 	requestModel "c2n-be/models/request"
-	"encoding/hex"
 	"fmt"
 	jwt "github.com/appleboy/gin-jwt/v2"
+	"github.com/ethereum/go-ethereum/accounts"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -34,12 +35,11 @@ func GetJwtMiddleware() gin.HandlerFunc {
 func initParams() *jwt.GinJWTMiddleware {
 
 	return &jwt.GinJWTMiddleware{
-		Realm:       "test zone",
-		Key:         []byte("secret key"),
-		Timeout:     time.Hour,
-		MaxRefresh:  time.Hour,
-		PayloadFunc: payloadFunc(),
-
+		Realm:           "test zone",
+		Key:             []byte("secret key"),
+		Timeout:         time.Hour,
+		MaxRefresh:      time.Hour,
+		PayloadFunc:     payloadFunc(),
 		IdentityHandler: IdentityHandler(),
 		Authenticator:   authenticator(),
 		Authorizator:    authorizator(),
@@ -75,16 +75,30 @@ func authenticator() func(c *gin.Context) (interface{}, error) {
 		if err := c.ShouldBind(&request); err != nil {
 			return "", jwt.ErrMissingLoginValues
 		}
-		signature, err := hex.DecodeString(strings.TrimPrefix(request.Signature, "0x"))
+		// 1. 将消息转换为标准格式（以太坊签名格式）
+		prefixedMessage := accounts.TextHash([]byte("hello"))
 
-		hash := crypto.Keccak256Hash([]byte("hello"))
-
-		sigPublicKeyECDSA, err := crypto.SigToPub(hash.Bytes(), signature)
+		// 2. 从16进制字符串中解码签名
+		signatureBytes, err := hexutil.Decode(request.Signature)
 		if err != nil {
-			log.Fatal(err)
+			return false, fmt.Errorf("无效的签名格式: %v", err)
 		}
 
+		// 签名的最后一个字节是 v 值，需要调整为标准的 27 或 28
+		if len(signatureBytes) != 65 {
+			return false, fmt.Errorf("签名长度错误")
+		}
+		signatureBytes[64] -= 27 // 将 v 值调整为 {0, 1} 范围
+
+		// 3. 使用 SigToPub 从签名中恢复公钥
+		sigPublicKeyECDSA, err := crypto.SigToPub(prefixedMessage, signatureBytes)
+		if err != nil {
+			return false, fmt.Errorf("解析公钥失败: %v", err)
+		}
+
+		// 4. 从公钥计算以太坊地址
 		recoveredAddress := crypto.PubkeyToAddress(*sigPublicKeyECDSA).Hex()
+
 		valid := strings.ToLower(recoveredAddress) == strings.ToLower(request.Address)
 		fmt.Println(valid) // true
 

@@ -2,7 +2,6 @@ package controller
 
 import (
 	"c2n-be/middlewares"
-	requestModel "c2n-be/models/request"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -30,9 +29,5 @@ func (c *Controller) GetToken(ctx *gin.Context) {
 		return
 	}
 
-	var request requestModel.GetTokenRequest
-	if err := ctx.ShouldBind(&request); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	}
 	ctx.JSON(http.StatusOK, token)
 }

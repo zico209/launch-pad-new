@@ -1,4 +1,4 @@
-package Initialize
+package services
 
 import (
 	"github.com/ethereum/go-ethereum/ethclient"
